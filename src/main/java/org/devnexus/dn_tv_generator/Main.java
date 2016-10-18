@@ -85,7 +85,7 @@ public class Main {
 
     private static void generateOneDay(HashMultimap<String, JsonObject> roomSessions, Map<String, Integer> roomColors, Date specificDayDate, String dateName) throws IOException, FontFormatException {
         Font fontHuge = Font.createFont(Font.TRUETYPE_FONT, Main.class.getResourceAsStream("/Roboto-Bold.ttf"));
-        fontHuge = fontHuge.deriveFont(84F);
+        fontHuge = fontHuge.deriveFont(96F);
 
         Font font = Font.createFont(Font.TRUETYPE_FONT, Main.class.getResourceAsStream(ROBOTO));
         font = font.deriveFont(48F);
@@ -112,7 +112,6 @@ public class Main {
 //            if (sessions.get(1).get("presentation") == null || sessions.get(1).get("presentation").isJsonNull() || sessions.get(1).get("presentation").getAsJsonObject().get("track") == null) {
 //                continue;
 //            }
-            System.out.println(sessions.get(0).get("presentation").getAsJsonObject().get("track").getAsJsonObject());
 
             String trackName = sessions.get(0).get("presentation").getAsJsonObject().get("track").getAsJsonObject().get("name").getAsString();
 
@@ -129,7 +128,7 @@ public class Main {
                     -> (int) (object.get("fromTime").getAsLong() - another.get("fromTime").getAsLong()));
 
             int width = 450;
-            int height = 275;
+            int height = 400;
             int offset_x = 20;
             int offset_y = 180;
 
@@ -143,9 +142,6 @@ public class Main {
                 long thisSessionDateMillis = session.get("fromTime").getAsLong();
                 Date thisSessionDate = new Date(thisSessionDateMillis);
                 Date almostTomorrow = new Date(specificDayDate.getTime() +(1000*60*60*22));
-
-                System.out.println(thisSessionDate.toString() + ' ' + trackName);
-                System.out.println(specificDayDate.toString() + ' ' + almostTomorrow);
 
                 // TEST IF IT IS ON THIS DATE
                 if ( thisSessionDate.before(almostTomorrow) && thisSessionDate.after(specificDayDate))  {
